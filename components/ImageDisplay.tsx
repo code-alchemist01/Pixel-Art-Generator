@@ -13,7 +13,7 @@ export const ImageDisplay: React.FC<ImageDisplayProps> = ({ imageUrl, altText })
         src={imageUrl}
         alt={altText}
         className="w-full h-auto rounded object-contain aspect-square"
-        style={{ imageRendering: 'pixelated' }} // Helps browsers display pixel art sharply
+        style={{ imageRendering: 'pixelated' }}
       />
        <p className="text-xs text-slate-500 mt-2 text-center px-2 italic">Generated art for: "{altText.replace('Pixel art of ', '')}"</p>
     </div>
