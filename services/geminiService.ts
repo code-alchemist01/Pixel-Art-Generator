@@ -2,16 +2,9 @@
 import { GoogleGenAI, GenerateImagesResponse } from "@google/genai";
 import { IMAGE_GENERATION_MODEL } from '../constants';
 
-// Ensure API_KEY is available. In a real app, this would be set in the environment.
-// For this context, we assume process.env.API_KEY is available.
-// If process.env or process.env.API_KEY is undefined, this will throw an error at initialization.
 const apiKey = process.env.API_KEY;
 if (!apiKey) {
   console.error("API_KEY is not set in process.env. Please ensure it's available.");
-  // To make the app usable in environments where API_KEY might not be immediately available
-  // (like a static deployment without server-side env vars),
-  // we throw an error here that will be caught by the UI.
-  // This avoids crashing the entire script if GoogleGenAI constructor fails.
 }
 
 let ai: GoogleGenAI | null = null;
@@ -21,7 +14,6 @@ try {
     }
 } catch (error) {
     console.error("Failed to initialize GoogleGenAI:", error);
-    // The error will propagate, or subsequent calls will fail if ai is null.
 }
 
 
@@ -39,7 +31,7 @@ export const generateImageFromPrompt = async (prompt: string): Promise<string> =
       prompt: prompt,
       config: { 
         numberOfImages: 1, 
-        outputMimeType: 'image/png' // PNG is often better for pixel art
+        outputMimeType: 'image/png' 
       },
     });
 
@@ -58,7 +50,6 @@ export const generateImageFromPrompt = async (prompt: string): Promise<string> =
   } catch (error) {
     console.error("Error generating image with Gemini API:", error);
     if (error instanceof Error) {
-      // Check for specific error messages if needed, e.g., related to API key or quota
       if (error.message.includes("API key not valid")) {
          throw new Error("Invalid API Key. Please check your configuration.");
       }
